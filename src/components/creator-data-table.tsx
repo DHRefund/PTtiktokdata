@@ -12,8 +12,9 @@ import {
   tableFeatures,
   useTable,
 } from "@tanstack/react-table";
-import { ArrowDownIcon, ArrowUpDownIcon, ArrowUpIcon, CircleHelpIcon, SearchIcon } from "lucide-react";
+import { ArrowDownIcon, ScaleIcon, ArrowUpDownIcon, ArrowUpIcon, CircleHelpIcon, SearchIcon } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 import { Pill, Img } from "@/components/common";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -164,6 +165,7 @@ const columns = helper.columns([
   }),
 ]);
 
+const MAX_COMPARE = 3;
 const RIGHT = new Set(["follower_count", "units_sold", "gmv", "video_avg_views"]);
 
 export function CreatorDataTable({ rows }: { rows: CreatorRow[] }) {
@@ -176,6 +178,11 @@ export function CreatorDataTable({ rows }: { rows: CreatorRow[] }) {
     // chỉ lọc theo tên/handle/MCN và ngành hàng
     getColumnCanGlobalFilter: (column) => column.id === "creator" || column.id === "categories",
   });
+
+  // Chọn tối đa 3 creator để so sánh bằng AI
+  const [selected, setSelected] = useState<string[]>([]);
+  const toggle = (handle: string) =>
+    setSelected((prev) => (prev.includes(handle) ? prev.filter((h) => h !== handle) : prev.length >= MAX_COMPARE ? prev : [...prev, handle]));
 
   const filter = String(table.state.globalFilter ?? "");
   const visible = table.getRowModel().rows;
@@ -198,11 +205,36 @@ export function CreatorDataTable({ rows }: { rows: CreatorRow[] }) {
         </p>
       </div>
 
+      {selected.length > 0 ? (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border bg-primary/5 px-3 py-2 text-sm">
+          <span>
+            Đã chọn {selected.length}/{MAX_COMPARE}: {selected.map((h) => `@${h}`).join(", ")}
+          </span>
+          <div className="flex items-center gap-2">
+            <button type="button" onClick={() => setSelected([])} className="text-muted-foreground underline hover:text-foreground">
+              Bỏ chọn
+            </button>
+            {selected.length >= 2 ? (
+              <Link
+                href={`/compare?handles=${selected.map(encodeURIComponent).join(",")}`}
+                prefetch={false}
+                className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-primary px-3 text-primary-foreground"
+              >
+                <ScaleIcon className="size-4" /> So sánh bằng AI
+              </Link>
+            ) : (
+              <span className="text-muted-foreground">Chọn thêm ít nhất 1 creator nữa</span>
+            )}
+          </div>
+        </div>
+      ) : null}
+
       <Card className="gap-0 overflow-hidden py-0">
         <Table className="min-w-[44rem]">
           <TableHeader>
             {table.getHeaderGroups().map((group) => (
               <TableRow key={group.id}>
+                <TableHead className="w-10" aria-label="Chọn để so sánh" />
                 {group.headers.map((header) => (
                   <TableHead key={header.id} className={cn(RIGHT.has(header.column.id) && "text-right")}>
                     {header.isPlaceholder ? null : <table.FlexRender header={header} />}
@@ -214,13 +246,23 @@ export function CreatorDataTable({ rows }: { rows: CreatorRow[] }) {
           <TableBody>
             {visible.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center text-muted-foreground">
+                <TableCell colSpan={columns.length + 1} className="h-24 text-center text-muted-foreground">
                   Không có creator nào khớp “{filter}”.
                 </TableCell>
               </TableRow>
             ) : (
               visible.map((row) => (
-                <TableRow key={row.id}>
+                <TableRow key={row.id} data-state={selected.includes(row.original.handle) ? "selected" : undefined}>
+                  <TableCell className="w-10">
+                    <input
+                      type="checkbox"
+                      className="size-4 accent-primary"
+                      checked={selected.includes(row.original.handle)}
+                      disabled={!selected.includes(row.original.handle) && selected.length >= MAX_COMPARE}
+                      onChange={() => toggle(row.original.handle)}
+                      aria-label={`Chọn @${row.original.handle} để so sánh`}
+                    />
+                  </TableCell>
                   {row.getAllCells().map((cell) => (
                     <TableCell key={cell.id} className={cn(RIGHT.has(cell.column.id) && "text-right")}>
                       <table.FlexRender cell={cell} />

@@ -75,7 +75,7 @@ Quy tắc chung: dữ liệu đã có trong DB thì hiển thị từ DB, kèm n
 | **4. Thư viện và xuất Excel** | Tìm trong dữ liệu đã lưu, lịch sử thay đổi, xuất Excel | Dùng được hằng ngày |
 | **5. Mở rộng (tuỳ chọn)** | Chấm điểm creator, endpoint mới khi TikToday mở, lưu ảnh, auth thật | Theo nhu cầu |
 
-Thiết kế giao diện giai đoạn 2 và 3, dựa trên dữ liệu thật đã gọi thử: xem [ui-design.md](ui-design.md).
+Thiết kế giao diện giai đoạn 2 và 3, dựa trên dữ liệu thật đã gọi thử: xem [ui-design.md](ui-design.md). Các tính năng AI (phân tích, so sánh, hỏi đáp): xem [ai.md](ai.md).
 
 ## 7. Câu hỏi còn mở
 

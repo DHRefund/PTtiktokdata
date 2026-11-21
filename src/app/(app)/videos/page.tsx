@@ -1,5 +1,8 @@
 import { Suspense } from "react";
+import { getSavedVideoInsights } from "@/actions/ai";
 import { searchVideos } from "@/actions/videos";
+import { VideoInsightsPanel } from "@/components/video-insights-panel";
+import { aiConfig } from "@/lib/ai/config";
 import { VideoGrid } from "@/components/entities";
 import { EmptyState, ErrorNote, FormSelect, PageHeader, SearchForm, SourceNote } from "@/components/common";
 import { requireUser } from "@/lib/auth/session";
@@ -18,10 +21,18 @@ async function Results({ q, limit }: { q: string; limit: number }) {
     );
   }
   const rows = asList<VideoItem>(r.data);
+  const saved = rows.length > 0 ? await getSavedVideoInsights(q) : null;
   return (
     <div className="flex flex-col gap-3">
       <SourceNote meta={r.meta} />
-      {rows.length === 0 ? <EmptyState>Không có video nào khớp.</EmptyState> : <VideoGrid videos={rows} />}
+      {rows.length === 0 ? (
+        <EmptyState>Không có video nào khớp.</EmptyState>
+      ) : (
+        <>
+          <VideoInsightsPanel query={q} limit={limit} configured={aiConfig().configured} saved={saved} />
+          <VideoGrid videos={rows} />
+        </>
+      )}
     </div>
   );
 }

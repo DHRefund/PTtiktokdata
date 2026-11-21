@@ -1,7 +1,8 @@
-import { CalendarDaysIcon, CalendarRangeIcon, ClapperboardIcon, SearchIcon, ShoppingBagIcon, UsersIcon } from "lucide-react";
+import { CalendarDaysIcon, CalendarRangeIcon, ClapperboardIcon, SearchIcon, ShoppingBagIcon, SparklesIcon, UsersIcon } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Suspense } from "react";
+import { getAiSpend } from "@/actions/ai";
 import { getDashboardStats, getUsageByDay, getUsageLog } from "@/actions/system";
 import { UsageBarChart } from "@/components/charts";
 import { CheckConnection } from "@/components/check-connection";
@@ -11,7 +12,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { requireUser } from "@/lib/auth/session";
-import { ago } from "@/lib/format";
+import { ago, usd } from "@/lib/format";
 import { recentSearches } from "@/lib/history";
 
 const fmt = new Intl.DateTimeFormat("vi-VN", {
@@ -107,6 +108,32 @@ async function UsageChartCard() {
       </CardHeader>
       <CardContent>
         <UsageBarChart data={usage.data} limit={limit} />
+      </CardContent>
+    </Card>
+  );
+}
+
+async function AiSpendCard() {
+  const spend = await getAiSpend();
+  if (!spend) return null;
+  return (
+    <Card>
+      <CardHeader>
+        <CardDescription className="flex items-center gap-2">
+          <SparklesIcon className="size-4" />
+          Chi phí AI hôm nay
+        </CardDescription>
+        <CardTitle className="text-3xl font-semibold tracking-tight tabular-nums">
+          {usd(spend.usd)}
+          <span className="text-lg font-normal text-muted-foreground"> / {usd(spend.budgetUsd)}</span>
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-2">
+        <Meter used={spend.usd} limit={spend.budgetUsd} />
+        <div className="flex justify-between text-xs text-muted-foreground">
+          <span>{spend.calls} lượt gọi AI</span>
+          <span>{spend.configured ? "Ước tính, hoá đơn thật ở trang của nhà cung cấp" : "Chưa cấu hình khoá AI"}</span>
+        </div>
       </CardContent>
     </Card>
   );
@@ -214,6 +241,10 @@ export default async function DashboardPage() {
         }
       >
         <QuotaCards />
+      </Suspense>
+
+      <Suspense fallback={<Skeleton className="h-36" />}>
+        <AiSpendCard />
       </Suspense>
 
       <Suspense fallback={<Skeleton className="h-72" />}>

@@ -17,6 +17,9 @@ const SECTIONS: Record<string, string> = {
   products: "Sản phẩm",
   videos: "Video",
   history: "Lịch sử",
+  ask: "Hỏi AI",
+  compare: "So sánh creator",
+  hot: "Sản phẩm hot",
   guide: "Hướng dẫn",
   explore: "Thử nghiệm",
 };

@@ -85,3 +85,9 @@ export function countOrRange(exact: number | null | undefined, range: string | n
   if (exact != null) return num(exact);
   return range ?? EMPTY;
 }
+
+/** Chi phí AI: 0.0012 -> "$0,0012". */
+export function usd(n: number): string {
+  const digits = n < 0.01 ? 4 : 2;
+  return `$${new Intl.NumberFormat("vi-VN", { minimumFractionDigits: digits, maximumFractionDigits: digits }).format(n)}`;
+}

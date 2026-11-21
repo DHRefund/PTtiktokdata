@@ -18,6 +18,7 @@ Web dùng dữ liệu TikToday API để tra cứu và lọc creator, sản ph�
 | Bảng dữ liệu | TanStack Table v9 (`@tanstack/react-table`) | Đã dùng cho bảng creator (`creator-data-table.tsx`): sắp xếp bấm tiêu đề cột, lọc nhanh. v9 khai báo `features` và `columns` ở phạm vi module và đọc state qua `table.state`, khác v8. Chưa áp dụng cho bảng sản phẩm/video (đang dùng lưới thẻ) |
 | Biểu đồ | Recharts 3 qua thành phần `chart` của shadcn (`src/components/charts.tsx`) | Doanh thu theo kênh, ngành hàng, độ tuổi, giới tính, khu vực của creator; lượt quota theo ngày ở Tổng quan |
 | Xuất file | `exceljs` | Xuất Excel danh sách KOC đã chấm điểm |
+| AI | `@anthropic-ai/sdk` (Claude), `react-markdown` + `remark-gfm` | Phân tích creator, so sánh, phân tích video, hỏi đáp có công cụ. Chỉ đọc cache, có trần chi phí mỗi ngày. Xem [ai.md](ai.md) |
 | Token | `jose` (JWT), `bcryptjs` (băm mật khẩu) | |
 | Test | Vitest | Mock response lấy từ tài liệu API |
 | Triển khai | Vercel + Supabase | Đặt `maxDuration` đủ cao vì endpoint chạy tới 55 giây |

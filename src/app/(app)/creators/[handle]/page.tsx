@@ -5,9 +5,13 @@ import {
   getCreatorVideosCached,
   loadCreatorSection,
 } from "@/actions/creators";
+import { getSavedCreatorBrief, getSavedOutreach } from "@/actions/ai";
 import { ActionButton } from "@/components/action-button";
+import { AiCreatorPanel } from "@/components/ai-creator-panel";
 import { AffiliatePanel, VideoGrid } from "@/components/entities";
 import { Card, EmptyState, ErrorNote, Img, PageHeader, SourceNote, Stat } from "@/components/common";
+import { aiConfig } from "@/lib/ai/config";
+import { loadCreatorDossier } from "@/lib/ai/dossier";
 import { requireUser } from "@/lib/auth/session";
 import { compact } from "@/lib/format";
 import { handleSchema } from "@/lib/tiktoday/schemas";
@@ -115,6 +119,15 @@ async function VideosSection({ handle, recent }: { handle: string; recent: Creat
   return <ErrorNote error={r.error} />;
 }
 
+async function AiSection({ handle }: { handle: string }) {
+  const [dossier, brief, outreach] = await Promise.all([
+    loadCreatorDossier(handle).catch(() => null),
+    getSavedCreatorBrief(handle),
+    getSavedOutreach(handle),
+  ]);
+  return <AiCreatorPanel handle={handle} configured={aiConfig().configured} hasData={dossier !== null} savedBrief={brief} savedOutreach={outreach} />;
+}
+
 async function Overview({ handle }: { handle: string }) {
   const r = await getCreatorProfile({ handle });
   if (!r.ok) {
@@ -152,6 +165,9 @@ async function Overview({ handle }: { handle: string }) {
         <SourceNote meta={r.meta} />
       </Card>
 
+      <Suspense fallback={skeleton}>
+        <AiSection handle={handle} />
+      </Suspense>
       <Suspense fallback={skeleton}>
         <AffiliateSection handle={handle} />
       </Suspense>

@@ -2,11 +2,14 @@
 
 import {
   BookOpenIcon,
+  BotMessageSquareIcon,
   ClapperboardIcon,
+  FlameIcon,
   FlaskConicalIcon,
   HistoryIcon,
   LayoutDashboardIcon,
   type LucideIcon,
+  ScaleIcon,
   ShoppingBagIcon,
   UsersIcon,
 } from "lucide-react";
@@ -31,6 +34,14 @@ const GROUPS: { label: string; items: Item[] }[] = [
       { href: "/creators", label: "Creator", icon: UsersIcon },
       { href: "/products", label: "Sản phẩm", icon: ShoppingBagIcon },
       { href: "/videos", label: "Video", icon: ClapperboardIcon },
+    ],
+  },
+  {
+    label: "AI",
+    items: [
+      { href: "/ask", label: "Hỏi AI", icon: BotMessageSquareIcon },
+      { href: "/compare", label: "So sánh creator", icon: ScaleIcon },
+      { href: "/hot", label: "Sản phẩm hot", icon: FlameIcon },
     ],
   },
   {

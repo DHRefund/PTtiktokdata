@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { ago, until, compact, duration, pct, vnd, EMPTY } from "./format";
+import { ago, until, compact, duration, pct, usd, vnd, EMPTY } from "./format";
+
+describe("usd", () => {
+  it("chi phí nhỏ hiện 4 chữ số thập phân, lớn hơn hiện 2", () => {
+    expect(usd(0.0012)).toBe("$0,0012");
+    expect(usd(1.5)).toBe("$1,50");
+  });
+});
 
 describe("format", () => {
   it("compact rút gọn theo nghìn, triệu, tỷ", () => {
