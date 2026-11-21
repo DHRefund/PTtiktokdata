@@ -1,0 +1,73 @@
+{
+  "model": "gemini-2.5-flash",
+  "normalized": {
+    "rows": [
+      {
+        "rank": 2,
+        "name": "[BẢN KHỔNG LỒ SIZE XL] Thùng 6 Bịch Khăn Giấy Rút Đáy Đa Sắc Cỡ Đại 1280 Tờ - 4 Lớp Chính Hãng - Dày Dai - Mềm Mịn, Giấy Rút Cao Cấp Đạt Chuẩn Bộ Công Thương TopGia (RDS17)",
+        "category_vi": "Khăn giấy",
+        "revenue": 154000000,
+        "currency": "JPY",
+        "sold": 147450,
+        "growth_percent": 11.4,
+        "growth_operator": "=",
+        "commission_percent": 8,
+        "creators": 4380,
+        "precision": "display-rounded"
+      },
+      {
+        "rank": 7,
+        "name": "[ CÓ ĐẦU HÚT NỆM ] Máy Hút Bụi Cầm Tay Không Dây 8 Đầu Hút Của TAMASHIO Nhật Bản , Máy Hút Bụi Ô Tô BH 12 Tháng",
+        "category_vi": "Máy hút bụi",
+        "revenue": 100000000,
+        "currency": "JPY",
+        "sold": 16230,
+        "growth_percent": 999.9,
+        "growth_operator": ">",
+        "commission_percent": 10,
+        "creators": 70,
+        "precision": "display-rounded"
+      },
+      {
+        "rank": 10,
+        "name": "COMBO 3 LON ENSURE GOLD HƯƠNG VANI 800G",
+        "category_vi": "Sữa bột",
+        "revenue": 84000000,
+        "currency": "JPY",
+        "sold": 3980,
+        "growth_percent": 906.3,
+        "growth_operator": "=",
+        "commission_percent": null,
+        "creators": 15,
+        "precision": "display-rounded"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "rank": 2,
+      "passed": true
+    },
+    {
+      "rank": 7,
+      "passed": true
+    },
+    {
+      "rank": 10,
+      "passed": true
+    }
+  ],
+  "usage": {
+    "promptTokenCount": 548,
+    "candidatesTokenCount": 524,
+    "totalTokenCount": 2736,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 548
+      }
+    ],
+    "thoughtsTokenCount": 1664,
+    "serviceTier": "standard"
+  }
+}

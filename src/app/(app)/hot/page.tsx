@@ -1,6 +1,8 @@
 import { HotProducts } from "@/components/hot-products";
 import { PageHeader } from "@/components/common";
 import { requireUser } from "@/lib/auth/session";
+import { KalodataProducts } from "@/components/kalodata-products";
+import { FastmossProducts } from "@/components/fastmoss-products";
 
 export default async function HotPage() {
   await requireUser();
@@ -10,8 +12,10 @@ export default async function HotPage() {
     <div className="flex flex-col gap-5">
       <PageHeader
         title="Sản phẩm hot"
-        subtitle="Nhập một ngách hoặc từ khoá bất kỳ. Gemini tìm trên Google rồi liệt kê vài sản phẩm đang được nhắc nhiều ở Việt Nam, kèm số liệu cơ bản và nguồn. Không tốn hạn mức TikToday."
+        subtitle="Xem bản dữ liệu Kalodata thu thập theo yêu cầu hoặc dùng Gemini tìm thêm sản phẩm đang được nhắc đến trên web. Mỗi phần có nguồn và thời điểm riêng."
       />
+      <KalodataProducts />
+      <FastmossProducts />
       <HotProducts configured={configured} />
     </div>
   );

@@ -1,0 +1,48 @@
+{
+  "source": "kalodata",
+  "url": "https://www.kalodata.com/product",
+  "market": "VN",
+  "collected_on": "2026-11-21",
+  "period": {
+    "start": "2026-10-22",
+    "end": "2026-11-20"
+  },
+  "currency": "JPY",
+  "precision": "display-rounded",
+  "extraction": "Small manually transcribed subset of browser-visible cells; not a production crawler",
+  "rows": [
+    {
+      "rank": 2,
+      "name": "[BẢN KHỔNG LỒ SIZE XL] Thùng 6 Bịch Khăn Giấy Rút Đáy Đa Sắc Cỡ Đại 1280 Tờ - 4 Lớp Chính Hãng - Dày Dai - Mềm Mịn, Giấy Rút Cao Cấp Đạt Chuẩn Bộ Công Thương TopGia (RDS17)",
+      "revenue": "154m円",
+      "growth": "11.4%",
+      "sold": "147.45k",
+      "rating": "4.9",
+      "avgPrice": "1k円",
+      "commission": "8%",
+      "creators": "4.38k"
+    },
+    {
+      "rank": 7,
+      "name": "[ CÓ ĐẦU HÚT NỆM ] Máy Hút Bụi Cầm Tay Không Dây 8 Đầu Hút Của TAMASHIO Nhật Bản , Máy Hút Bụi Ô Tô BH 12 Tháng",
+      "revenue": "100m円",
+      "growth": ">999.9%",
+      "sold": "16.23k",
+      "rating": "4.9",
+      "avgPrice": "6k円",
+      "commission": "10%",
+      "creators": "70"
+    },
+    {
+      "rank": 10,
+      "name": "COMBO 3 LON ENSURE GOLD HƯƠNG VANI 800G",
+      "revenue": "84m円",
+      "growth": "906.3%",
+      "sold": "3.98k",
+      "rating": "4.9",
+      "avgPrice": "21k円",
+      "commission": "-",
+      "creators": "15"
+    }
+  ]
+}

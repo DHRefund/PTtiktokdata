@@ -43,3 +43,6 @@ next-env.d.ts
 
 # npm cache cục bộ (ổ C đầy nên đặt cache npm trong dự án)
 /.npm-cache
+
+# Collector session contains authentication secrets; output is local source data.
+/.collector/
